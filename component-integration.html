@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<!-- This line tells the browser that this is an HTML5 document. -->
+<html lang="en">
+<head>
+    <!-- Sets the character encoding for the document, ensuring text displays correctly. -->
+    <meta charset="UTF-8">
+    <!-- Configures the viewport for responsive design, making the website look good on all devices. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the title that appears in the browser tab or window title bar. -->
+    <title>Component Integration | Ess Bee Trade Box Private Limited</title>
+    <!-- Links to Tailwind CSS, a framework that provides ready-to-use styles for your website. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Main font: Inter from Google Fonts. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- New heading font: Playfair Display from Google Fonts. -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Links to Font Awesome, a library that provides a wide range of icons. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Links to your custom stylesheet, where you define your own specific designs. -->
+    <link rel="stylesheet" href="style.css">
+    <!-- The <style> tag contains CSS rules specific to this HTML file. -->
+    <style>
+        /* Styles for the loading screen that appears when the page first loads. */
+        #loader {
+            /* Fixes the loader to the browser window. */
+            position: fixed;
+            /* Positions the loader at the very top-left corner. */
+            top: 0;
+            left: 0;
+            /* Makes the loader cover the entire screen. */
+            width: 100%;
+            height: 100%;
+            /* Sets the background color to white. */
+            background-color: #ffffff;
+            /* Arranges content vertically and centers it. */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* Ensures the loader is on top of everything. */
+            z-index: 9999;
+            /* Smooth transition for hiding the loader. */
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+        /* When 'hidden' class is added, the loader fades out. */
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        /* Animation for the image inside the loader. */
+        #loader img {
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        /* Styles for the tagline in the loader. */
+        #loader .tagline {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            color: #a0a0a0;
+            opacity: 0;
+            animation: fadeIn 1.5s ease 0.5s forwards;
+        }
+        /* Defines the 'pulse' animation. */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        /* Defines the 'fadeIn' animation. */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        /* Hides scrollbar while loader is active. */
+        .loading {
+            overflow: hidden;
+        }
+
+        /* --- TYPOGRAPHY SYSTEM --- */
+        /* Ensures specific text elements use the 'Playfair Display' font. */
+        .section-title, .hero-content h1, .brief-section h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Adjusting size for the new font. */
+        .section-title {
+            font-size: 2.5rem;
+        }
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        /* --- DYNAMIC BACKGROUND & ANIMATION STYLES --- */
+        /* Styles for parallax background. */
+        .parallax-bg {
+            background-image: url('images/electronics-texture-bg.jpg'); /* Updated to electronics-themed background */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        /* Overlay for parallax background. */
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        /* Hover animation for brief sections. */
+        .brief-section {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+        .brief-section:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        /* Custom CSS variables for brand colors. */
+        :root {
+            --brand-primary-gold: #F9D821; /* Your brand's primary gold color */
+            --brand-dark-text: #2C2C2C;   /* Your brand's dark text color */
+        }
+        /* Ensures elements using old color variables adopt new ones. */
+        .text-[var(--vhm-gold)],
+        .focus\:ring-\[var\(--vhm-gold\)\],
+        .focus\:border-\[var\(--vhm-gold\)\],
+        .focus\:ring-\[var\(--vhm-gold\)\] {
+            color: var(--brand-primary-gold);
+            border-color: var(--brand-primary-gold);
+            --tw-ring-color: var(--brand-primary-gold);
+        }
+        /* Specific override for the background of the call to action section */
+        .bg-vhm-dark-text { /* This class name is still present from the original, overriding it here */
+            background-color: var(--brand-dark-text);
+        }
+        .text-vhm-dark-text { /* This class name is still present from the original, overriding it here */
+            color: var(--brand-dark-text);
+        }
+    </style>
+</head>
+<!-- The <body> section contains all the visible content of your website. -->
+<body class="bg-white">
+
+    <!-- Header: Consistent with other pages -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+        <!-- Logo linking to the home page. -->
+        <a href="index.html" class="flex items-center">
+            <img src="ASSETS/ess bee trade box panel logo.pdf (5).png" alt="Ess Bee Trade Box Pvt Ltd Logo" class="h-20 md:h-20 w-auto">
+        </a>
+        <!-- Desktop navigation links. -->
+        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+            <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Home</a>
+            <!-- "What We Do" dropdown menu. -->
+            <div class="dropdown">
+                <a href="services.html" class="nav-link nav-link-active px-3 py-2 rounded-md text-sm font-medium flex items-center"> <!-- Marked as active for this page -->
+                    What We Do <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-content">
+                    <!-- Links to specific service pages. -->
+                    <a href="design-engineering.html">Design & Engineering</a>
+                    <a href="metal-fabrication.html">Metal Fabrication</a>
+                    <a href="powder-coating.html">Powder Coating</a>
+                    <a href="component-integration.html">Component Integration</a> <!-- This page's link -->
+                    <a href="quality-assurance.html">Quality Assurance</a>
+                </div>
+            </div>
+            <!-- "Our Facility" dropdown menu. -->
+             <div class="dropdown">
+    <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium flex items-center">
+        Gallery <i class="fas fa-chevron-down text-xs ml-1"></i> </a>
+    <div class="dropdown-content">
+        <a href="our-work.html">Our Work</a>
+        <a href="our-achievements.html">Our Achievements</a>
+        <a href="our-certificates.html">Our Certificates</a>
+    </div>
+</div>
+            <a href="about-us.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">About Us</a>
+            <a href="career.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Career</a>
+        </div>
+        <!-- Mobile menu button. -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+    <!-- Mobile menu content, initially hidden. -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg border-t border-gray-200">
+        <a href="index.html" class="block nav-link px-4 py-3 border-b border-gray-100">Home</a>
+        <a href="services.html" class="block nav-link nav-link-active px-4 py-3 border-b border-gray-100">What We Do</a> <!-- Marked as active for this page -->
+        <a href="facility.html" class="block nav-link px-4 py-3 border-b border-gray-100">Our Facility</a>
+        <a href="about-us.html" class="block nav-link px-4 py-3 border-b border-gray-100">About Us</a>
+        <a href="career.html" class="block nav-link px-4 py-3 border-b border-gray-100">Career</a>
+    </div>
+</header>
+
+    <main>
+        <!-- Page Hero Section: Displays a banner image and title for the page. -->
+        <section class="relative bg-gray-700 py-20 bg-cover bg-center" style="background-image: url('images/component-integration-banner.jpg');"> <!-- Placeholder image for banner -->
+            <!-- Semi-transparent overlay for text readability. -->
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <!-- Content of the hero section. -->
+            <div class="relative container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg animate-on-scroll fade-in-up">Component Integration</h1>
+                <p class="mt-4 text-lg text-gray-200 animate-on-scroll fade-in-up" style="animation-delay: 200ms;">Seamless Assembly with Premium Brands</p>
+            </div>
+        </section>
+
+        <!-- Sub-Navigation Section: Allows users to quickly jump to different parts of this page. -->
+        <div class="sub-nav py-3">
+            <div class="container mx-auto px-6 flex justify-center space-x-6 overflow-x-auto">
+                <!-- Links to different sections of the page. -->
+                <a href="#component-sourcing" class="sub-nav-link whitespace-nowrap active">Component Sourcing</a>
+                <a href="#mounting-wiring" class="sub-nav-link whitespace-nowrap">Mounting & Wiring</a>
+                <a href="#interconnection" class="sub-nav-link whitespace-nowrap">Interconnection</a>
+                <a href="#final-assembly" class="sub-nav-link whitespace-nowrap">Final Assembly</a>
+            </div>
+        </div>
+
+        <!-- Intro Section: Provides an overview of the Component Integration process. -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6 text-center max-w-3xl">
+                <h2 class="section-title text-4xl md:text-5xl font-extrabold relative pt-10">Bringing Panels to Life</h2>
+                <p class="mt-8 text-lg text-gray-600 leading-relaxed animate-on-scroll fade-in-up">
+                    At Ess Bee Trade Box, component integration is where the design and fabrication phases converge into a functional electrical panel. We meticulously assemble and wire high-quality components from trusted brands like Anchor - Polycab, Schneider Electric, ensuring optimal performance, reliability, and safety for every system.
+                </p>
+            </div>
+        </section>
+
+        <!-- Service Details Sections: Each section details a specific step in the Component Integration process. -->
+        <div class="bg-white overflow-hidden">
+            
+            <!-- Component Sourcing -->
+            <section id="component-sourcing" class="py-20">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="animate-on-scroll slide-in-left">
+                            <!-- Placeholder for image: Component Sourcing -->
+                            <img src="Assets/Components sourcing.png" alt="Component Sourcing" class="rounded-lg shadow-xl w-full">
+                        </div>
+                        <div class="animate-on-scroll slide-in-right">
+                            <h3 class="text-3xl font-bold text-[var(--brand-dark-text)] mb-4">Component Sourcing</h3>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                Our commitment to quality begins with sourcing. We partner with industry-leading brands such as Anchor - Polycab, Schneider Electric, and L&K to procure all necessary electrical components, including circuit breakers, contactors, relays, and wiring. This ensures that every part integrated into your panel meets the highest standards of performance and reliability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mounting & Wiring -->
+            <section id="mounting-wiring" class="py-20 bg-gray-50">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="md:order-2 animate-on-scroll slide-in-right">
+                            <!-- Placeholder for image: Mounting & Wiring -->
+                            <img src="Assets/mounting and wiring.jpeg" alt="Mounting and Wiring" class="rounded-lg shadow-xl w-full">
+                        </div>
+                        <div class="md:order-1 animate-on-scroll slide-in-left">
+                            <h3 class="text-3xl font-bold text-[var(--brand-dark-text)] mb-4">Mounting & Wiring</h3>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                Following precise panel layout designs, our skilled technicians meticulously mount each component onto DIN rails or mounting plates. Wires are then cut, stripped, and crimped with precision, ensuring secure and reliable connections. Every wire is neatly routed and labeled according to industry standards for clarity and ease of maintenance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Interconnection -->
+            <section id="interconnection" class="py-20">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="animate-on-scroll slide-in-left">
+                            <!-- Placeholder for image: Interconnection -->
+                            <img src="Assets/interconnection.jpeg" alt="Component Interconnection" class="rounded-lg shadow-xl w-full">
+                        </div>
+                        <div class="animate-on-scroll slide-in-right">
+                            <h3 class="text-3xl font-bold text-[var(--brand-dark-text)] mb-4">Interconnection</h3>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                This crucial step involves connecting all components according to the detailed schematic diagrams. Our team ensures that power circuits, control circuits, and communication lines are correctly and safely interconnected, adhering to strict electrical codes and best practices. This forms the functional backbone of the electrical panel.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Assembly -->
+            <section id="final-assembly" class="py-20 bg-gray-50">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="md:order-2 animate-on-scroll slide-in-right">
+                            <!-- Placeholder for image: Final Assembly -->
+                            <img src="Assets/final assembly.png" alt="Final Panel Assembly" class="rounded-lg shadow-xl w-full">
+                        </div>
+                        <div class="md:order-1 animate-on-scroll slide-in-left">
+                            <h3 class="text-3xl font-bold text-[var(--brand-dark-text)] mb-4">Final Assembly</h3>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                The integrated internal components are then secured within the powder-coated enclosure. This includes attaching the wired door, installing external controls, and ensuring all access points are properly sealed. The final assembly step brings all elements together into a complete, ready-to-test electrical panel.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Our Expertise Section: Highlight key aspects of your operational approach. -->
+        <section class="pt-20 pb-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl md:text-5xl font-extrabold relative pt-10 text-center">Our Integration Expertise</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 max-w-5xl mx-auto">
+                    <!-- Icon and text for Brand Partnerships. -->
+                    <div class="text-center p-4 animate-on-scroll fade-in-up">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-100 text-[var(--brand-primary-gold)] mx-auto mb-4">
+                            <i class="fas fa-handshake text-2xl"></i> <!-- Icon for brand partnerships -->
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Reputed Brand Partnerships</h4>
+                        <p class="text-gray-600">We exclusively integrate components from globally recognized brands like Anchor, Polycab, Schneider Electric, and L&K for assured quality and performance.</p>
+                    </div>
+                    <!-- Icon and text for Precision Assembly. -->
+                    <div class="text-center p-4 animate-on-scroll fade-in-up" style="animation-delay: 200ms;">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-100 text-[var(--brand-primary-gold)] mx-auto mb-4">
+                            <i class="fas fa-screwdriver text-2xl"></i> <!-- Icon for precision assembly -->
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Precision Assembly & Wiring</h4>
+                        <p class="text-gray-600">Our skilled technicians follow stringent protocols for mounting, wiring, and termination, ensuring impeccable craftsmanship and adherence to safety standards.</p>
+                    </div>
+                    <!-- Icon and text for System Reliability. -->
+                    <div class="text-center p-4 animate-on-scroll fade-in-up" style="animation-delay: 400ms;">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-100 text-[var(--brand-primary-gold)] mx-auto mb-4">
+                            <i class="fas fa-cogs text-2xl"></i> <!-- Icon for system reliability -->
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Optimized System Reliability</h4>
+                        <p class="text-gray-600">Every integration is performed with an eye on long-term operational stability, minimizing downtime and maximizing the lifespan of your electrical systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section: Encourages users to explore other services or contact you. -->
+        <section class="bg-[var(--brand-dark-text)] py-20"> <!-- Used CSS variable for background -->
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold text-white animate-on-scroll fade-in-up">Ready for Integrated Excellence?</h2>
+                <p class="text-gray-300 mt-4 mb-8 max-w-2xl mx-auto animate-on-scroll fade-in-up" style="animation-delay: 200ms;">
+                    Discover how our meticulous component integration ensures the superior performance of your electrical panels.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="services.html" class="bg-white text-[var(--brand-dark-text)] font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-200 transition-colors duration-300 animate-on-scroll fade-in-up" style="animation-delay: 400ms;">
+                        View All Services
+                    </a>
+                    <a href="index.html#contact" class="btn-primary font-semibold py-3 px-8 rounded-lg text-lg hover:shadow-xl animate-on-scroll fade-in-up" style="animation-delay: 550ms;">
+                        Request a Quote
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pre-Footer & Footer: Consistent across all pages. -->
+    <section class="pre-footer py-16">
+        <div class="container mx-auto px-6 text-sm">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Quick Links Column -->
+                <div>
+                    <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Quick Links</h4>
+                    <a href="index.html" class="pre-footer-link">Home</a>
+                    <a href="about-us.html" class="pre-footer-link">About Us</a>
+                    <a href="services.html" class="pre-footer-link">Services</a>
+                    <a href="career.html" class="pre-footer-link">Careers</a>
+                </div>
+                <!-- Our Strengths Column -->
+                <div>
+                    <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Our Strengths</h4>
+                    <a href="processing-infrastructure.html" class="pre-footer-link">Processing Infrastructure</a>
+                    <a href="quality-hub.html" class="pre-footer-link">Quality Control</a>
+                    <a href="design-engineering.html" class="pre-footer-link">Precision Engineering</a>
+                    <a href="component-integration.html" class="pre-footer-link">Component Integration</a>
+                    <a href="quality-hub.html" class="pre-footer-link">R&D and Testing</a>
+                </div>
+                <!-- Our Commitment Column -->
+                <div>
+                    <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Our Commitment</h4>
+                    <a href="customer-satisfaction.html" class="pre-footer-link">Customer Satisfaction</a>
+                    <a href="utilities-safety.html" class="pre-footer-link">Safety & Health</a>
+                    <a href="sustainability-people.html" class="pre-footer-link">Environmental Responsibility</a>
+                    <a href="sustainability-people.html" class="pre-footer-link">Skilled Workforce</a>
+                </div>
+                <!-- Contact Us Column -->
+                <div>
+                    <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Contact Us</h4>
+                    <p class="text-gray-600 leading-relaxed">
+                        <strong>Address:</strong> Your Company Address, City, State - 123456, Country<br>
+                        <strong>Phone:</strong> <a href="tel:+91XXXXXXXXXX" class="pre-footer-link inline">+91-XXXXXXXXXX</a><br>
+                        <strong>Email:</strong> <a href="mailto:info@yourcompany.com" class="pre-footer-link inline">info@yourcompany.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 bg-gray-800 text-gray-400"> <!-- Changed bg-vhm-dark-text to a generic gray-800 -->
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0 text-center md:text-left text-base">&copy; <span id="currentYear"></span> Ess Bee Trade Box Private Limited. All Rights Reserved.</p> <!-- Updated copyright -->
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.instagram.com/yourcompanyinstagram" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a> <!-- Placeholder for Instagram -->
+                <a href="https://www.linkedin.com/company/yourcompanylinkedin" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> <!-- Placeholder for LinkedIn -->
+                <a href="https://www.facebook.com/yourcompanyfacebook" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> <!-- Placeholder for Facebook -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for interactivity. -->
+    <script>
+    // Set the current year in the footer dynamically.
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // REWRITTEN ANIMATION SCRIPT: Makes elements animate when they become visible on screen.
+    const animationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // When element enters the viewport, add animation class.
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible', 'animate');
+            }
+            // When element leaves the viewport, remove class to reset animation.
+            else {
+                entry.target.classList.remove('is-visible', 'animate');
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible.
+    });
+
+    // Apply the animation observer to all desired elements.
+    document.querySelectorAll('.animate-on-scroll, .section-title, .brief-section, .grid > div').forEach(el => {
+        animationObserver.observe(el);
+    });
+
+    // Mobile menu toggle functionality.
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    // This handles smooth scroll for sub-navigation links.
+    const subNavLinks = document.querySelectorAll('.sub-nav a');
+    if (subNavLinks.length > 0) {
+        subNavLinks.forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default jump.
+                const targetId = this.getAttribute('href'); // Get target section ID.
+                const targetElement = document.querySelector(targetId); // Find target element.
+                if (targetElement) {
+                    // Calculate offset to account for fixed header and sub-navigation.
+                    const headerOffset = document.querySelector('header').offsetHeight + document.querySelector('.sub-nav').offsetHeight;
+                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - headerOffset;
+                    // Smoothly scroll to the target.
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    // This handles tab functionality (not directly used on this page, but kept for consistency).
+    function changeTab(event, tabID) {
+        const tabcontent = document.querySelectorAll('.tab-content');
+        tabcontent.forEach(content => content.style.display = "none");
+        
+        const tablinks = document.querySelectorAll('.tab-button');
+        tablinks.forEach(link => link.classList.remove('active'));
+
+        document.getElementById(tabID).style.display = "block";
+        event.currentTarget.classList.add('active');
+    }
+    // Set the first tab to be active on page load if tabs exist (not directly applicable here, but common for tabbed pages).
+    if(document.querySelector('.tab-button')) {
+        document.addEventListener('DOMContentLoaded', () => {
+             document.querySelector('.tab-button').click();
+        });
+    }
+
+    // Loader logic (kept for consistency, though typically only on index.html).
+    const loader = document.getElementById('loader');
+    const minLoadTime = 2500;
+    const pageLoadTime = Date.now();
+
+    window.addEventListener('load', () => {
+        const timeLapsed = Date.now() - pageLoadTime;
+        const delay = Math.max(minLoadTime - timeLapsed, 0);
+
+        setTimeout(() => {
+            if (loader) { // Check if loader exists before trying to hide it
+                loader.classList.add('hidden');
+            }
+            document.body.classList.remove('loading');
+        }, delay);
+    });
+    </script>
+</body>
+</html>

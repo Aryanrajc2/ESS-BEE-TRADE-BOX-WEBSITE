@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<!-- This line tells the browser that this is an HTML5 document. -->
+<html lang="en">
+<!-- The <head> section contains information about the page that isn't directly visible to the user. -->
+<head>
+    <!-- Sets the character encoding for the document, ensuring text displays correctly. -->
+    <meta charset="UTF-8">
+    <!-- Configures the viewport for responsive design, making the website look good on all devices. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the title that appears in the browser tab or window title bar. -->
+    <title>Ess Bee Trade Box Private Limited</title>
+    <!-- Links to Tailwind CSS, a framework that provides ready-to-use styles for your website. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Links to the 'Inter' font from Google Fonts, used as the main font for most text. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Links to the 'Playfair Display' font from Google Fonts, used for headings and titles. -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Links to Font Awesome, a library that provides a wide range of icons (like arrows, buildings, etc.). -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Links to your custom stylesheet, where you define your own specific designs. -->
+    <link rel="stylesheet" href="style.css">
+    <!-- The <style> tag contains CSS rules specific to this HTML file, not in style.css. -->
+    <style>
+        /* Styles for the loading screen that appears when the page first loads. */
+        #loader {
+            /* Fixes the loader to the browser window, so it stays in place even if you scroll. */
+            position: fixed;
+            /* Positions the loader at the very top-left corner of the screen. */
+            top: 0;
+            left: 0;
+            /* Makes the loader cover the entire width of the screen. */
+            width: 100%;
+            /* Makes the loader cover the entire height of the screen. */
+            height: 100%;
+            /* Sets the background color of the loader to white. */
+            background-color: #ffffff;
+            /* Arranges the content inside the loader (logo and tagline) vertically. */
+            display: flex;
+            flex-direction: column; /* Arrange items vertically */
+            /* Centers the content vertically within the loader. */
+            justify-content: center;
+            /* Centers the content horizontally within the loader. */
+            align-items: center;
+            /* Ensures the loader appears on top of all other content. */
+            z-index: 9999;
+            /* Makes the loader disappear smoothly (opacity and visibility) over 1 second. */
+            transition: opacity 1s ease, visibility 1s ease; /* Slower, smoother transition */
+        }
+        /* When the 'hidden' class is added to the loader, it will fade out and become invisible. */
+        #loader.hidden {
+            /* Makes the loader completely transparent. */
+            opacity: 0;
+            /* Hides the loader from screen readers and interaction. */
+            visibility: hidden;
+        }
+        /* Styles for the image inside the loader. */
+        #loader img {
+            /* Applies a 'pulse' animation to the image, making it subtly grow and shrink. */
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        /* Styles for the tagline text below the logo in the loader. */
+        #loader .tagline {
+            /* Adds some space above the tagline. */
+            margin-top: 1rem;
+            /* Sets the font size of the tagline. */
+            font-size: 1.25rem;
+            /* Sets the color of the tagline to a soft gray. */
+            color: #a0a0a0; /* A soft gray */
+            /* Makes the tagline transparent initially. */
+            opacity: 0;
+            /* Applies a 'fadeIn' animation to the tagline, making it appear after a delay. */
+            animation: fadeIn 1.5s ease 0.5s forwards; /* Fade in after 0.5s */
+        }
+        /* Defines the 'pulse' animation for the loader image. */
+        @keyframes pulse {
+            /* At the start (0%) and end (100%) of the animation, the image is at normal size. */
+            0% { transform: scale(1); }
+            /* In the middle (50%), the image is slightly larger. */
+            50% { transform: scale(1.05); }
+            /* Back to normal size. */
+            100% { transform: scale(1); }
+        }
+        /* Defines the 'fadeIn' animation for the loader tagline. */
+        @keyframes fadeIn {
+            /* The animation ends with full opacity (fully visible). */
+            to {
+                opacity: 1;
+            }
+        }
+        /* Hides the scrollbar while the loader is active to prevent flickering. */
+        .loading {
+            overflow: hidden;
+        }
+
+        /* --- NEW TYPOGRAPHY SYSTEM --- */
+        /* These styles ensure specific text elements use the 'Playfair Display' font. */
+        .section-title, .hero-content h1, .brief-section h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Adjusting size for the new font which appears larger */
+        /* Sets the default font size for section titles. */
+        .section-title {
+            font-size: 2.5rem; /* Equivalent to text-4xl in Tailwind */
+        }
+        /* For screens wider than 768 pixels (e.g., tablets and desktops), increase the font size. */
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 3rem; /* Equivalent to text-5xl in Tailwind */
+            }
+        }
+
+        /* --- NEW DYNAMIC BACKGROUND & ANIMATION STYLES --- */
+        /* Styles for a background section that uses a parallax effect (background moves slower than foreground). */
+        .parallax-bg {
+            /* Sets the background image for this section. REMEMBER TO REPLACE THIS IMAGE! */
+            background-image: url('images/electronics-texture-bg.jpg');
+            /* Makes the background image fixed relative to the viewport, creating the parallax effect. */
+            background-attachment: fixed;
+            /* Centers the background image. */
+            background-position: center;
+            /* Prevents the background image from repeating. */
+            background-repeat: no-repeat;
+            /* Ensures the background image covers the entire area. */
+            background-size: cover;
+            /* Allows positioning of child elements relative to this section. */
+            position: relative;
+        }
+        /* Styles for an overlay on top of the parallax background. */
+        .parallax-overlay {
+            /* Positions the overlay absolutely to cover the entire section. */
+            position: absolute;
+            /* Aligns the overlay to the top-left corner. */
+            top: 0;
+            left: 0;
+            /* Makes the overlay fill the entire width. */
+            width: 100%;
+            /* Makes the overlay fill the entire height. */
+            height: 100%;
+            /* Sets a semi-transparent white background for readability over the image. */
+            background-color: rgba(255, 255, 255, 0.85); /* White overlay for readability */
+        }
+        /* Styles for the brief sections (About Us, What We Do, Our Facility) that animate on hover. */
+        .brief-section {
+            /* Smoothly animates position and shadow changes with a slightly bouncy effect. */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+        /* When hovering over a brief section, it will move up slightly and enlarge. */
+        .brief-section:hover {
+            /* Moves the section up by 10 pixels and slightly scales it up. */
+            transform: translateY(-10px) scale(1.02);
+        }
+        /* Custom CSS variable for brand color - Renamed for clarity. */
+        /* This defines a custom property (variable) for your primary brand color (gold). */
+        :root {
+            --brand-primary-gold: #F9D821; /* Example gold, adjust to your brand's specific gold/primary color */
+            --brand-dark-text: #2C2C2C; /* Example dark text color */
+        }
+
+        /* Updated usages of the old variable. */
+        /* This block ensures that any element using the old '--vhm-gold' variable
+           will now use '--brand-primary-gold' for its color, border, and ring. */
+        .text-[var(--vhm-gold)],
+        .focus\:ring-\[var\(--vhm-gold\)\],
+        .focus\:border-\[var\(--vhm-gold\)\],
+        .focus\:ring-\[var\(--vhm-gold\)\] {
+            color: var(--brand-primary-gold); /* For text colors */
+            border-color: var(--brand-primary-gold); /* For borders/focus rings */
+            --tw-ring-color: var(--brand-primary-gold); /* For Tailwind ring colors */
+        }
+    </style>
+</head>
+<!-- The <body> section contains all the visible content of your website. -->
+<body class="bg-gray-100 loading">
+
+<!-- Loading Screen: This is the first thing users see while the page loads. -->
+<div id="loader">
+    <!-- Your company logo. 'h-24' sets its height, 'w-auto' maintains its aspect ratio. -->
+    <img src="ASSETS/ess bee trade box panel logo.pdf (5).png" alt="Ess Bee Trade Box Pvt Ltd Logo" class="h-24 w-auto">
+    <!-- Your company's tagline, appearing below the logo. -->
+    <p class="tagline" style="font-family: 'Playfair Display', serif;">Ess Bee Trade Box Pvt Ltd </p> <!-- Applied Playfair Display as it's already loaded for headings -->
+</div>
+
+<!-- The <header> section usually contains your navigation bar and logo. -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <!-- This is your main navigation bar. -->
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+        <!-- Your company logo, which also acts as a link to the home page. -->
+        <a href="index.html" class="flex items-center"> <!-- Changed vhm.html to index.html to point to the correct home page -->
+            <img src="ASSETS/ess bee trade box panel logo.pdf (5).png" alt="Ess Bee Trade Box Pvt Ltd Logo" class="h-20 md:h-20 w-auto">
+        </a>
+        <!-- This div contains the navigation links for larger screens (hidden on mobile). -->
+        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+            <!-- Home page link. 'nav-link-active' highlights it as the current page. -->
+            <a href="index.html" class="nav-link nav-link-active px-3 py-2 rounded-md text-sm font-medium">Home</a> <!-- Changed vhm.html to index.html -->
+            <!-- Dropdown menu for "What We Do" section. -->
+            <div class="dropdown">
+                <!-- The main link for the "What We Do" dropdown. -->
+                <a href="services.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    What We Do <i class="fas fa-chevron-down text-xs ml-1"></i> <!-- Down arrow icon -->
+                </a>
+                <!-- The actual content of the dropdown menu. -->
+                <div class="dropdown-content">
+                    <!-- Links to specific service pages. REMEMBER TO CREATE THESE FILES! -->
+                    <a href="design-engineering.html"> Design & Engineering</a> <!-- Renamed file link -->
+                    <a href="metal-fabrication.html">Metal Fabrication</a> <!-- Renamed file link -->
+                    <a href="powder-coating.html">Powder Coating</a> <!-- Renamed file link -->
+                    <a href="component-integration.html">Component Integration</a> <!-- Renamed file link -->
+                    <a href="quality-assurance.html">Quality Assurance</a>
+                </div>
+            </div>
+            <!-- Dropdown menu for "Our Facility" section. -->
+           <div class="dropdown">
+    <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium flex items-center">
+        Gallery <i class="fas fa-chevron-down text-xs ml-1"></i> </a>
+    <div class="dropdown-content">
+        <a href="our-work.html">Our Work</a>
+        <a href="our-achievements.html">Our Achievements</a>
+        <a href="our-certificates.html">Our Certificates</a>
+    </div>
+</div>
+            <!-- Link to the About Us page. -->
+            <a href="about-us.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">About Us</a>
+            <!-- Link to the Contact Us page. -->
+            <a href="contact.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Contact Us</a>
+        </div>
+        <!-- This div contains the mobile menu button (visible only on smaller screens). -->
+        <div class="md:hidden">
+            <!-- Button to toggle the mobile menu open/close. -->
+            <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                <!-- SVG icon for the hamburger menu. -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+    <!-- The mobile menu content, initially hidden. -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg border-t border-gray-200">
+        <!-- Mobile menu links. -->
+        <a href="index.html" class="block nav-link px-4 py-3 border-b border-gray-100">Home</a> <!-- Changed vhm.html to index.html -->
+        <a href="services.html" class="block nav-link px-4 py-3 border-b border-gray-100">What We Do</a>
+        <a href="facility.html" class="block nav-link nav-link-active px-4 py-3 border-b border-gray-100">Our Facility</a>
+        <a href="about-us.html" class="block nav-link px-4 py-3 border-b border-gray-100">About Us</a>
+        <a href="career.html" class="block nav-link px-4 py-3 border-b border-gray-100">Career</a>
+    </div>
+</header>
+
+    <!-- The <main> section contains the primary content unique to this page. -->
+    <main>
+        <!-- Hero section with a video background, typically the first section users see. -->
+        <section id="home" class="hero-section-video-bg py-20 md:py-32 min-h-[70vh] md:min-h-[80vh] flex items-center justify-center">
+            <!-- The background video that plays automatically and loops. -->
+            <video autoplay muted loop playsinline id="heroVideo" poster="images/hero_poster_electronics_fallback.jpg"> <!-- Updated poster filename. REMEMBER TO CREATE THIS IMAGE! -->
+                <!-- Specifies the video file to play. -->
+                <source src="ASSETS/home page bg vdo 2k.mp4" type="video/mp4">
+            </video>
+            <!-- A semi-transparent overlay on top of the video for better text readability. -->
+            <div class="hero-overlay"></div>
+            <!-- The main content (heading, paragraph, button) displayed over the video. -->
+            <div class="hero-content container mx-auto px-6 text-center">
+                <!-- Main heading of the hero section. -->
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white drop-shadow-md">
+                    Expert Electric Panels Engineering
+                </h1>
+                <!-- Sub-text describing your company. -->
+                <p class="text-lg md:text-xl mb-8 max-w-5xl mx-auto text-yellow-200 drop-shadow">
+                    Ess Bee Trade Box Pvt Ltd: Specializing in manufacturing and supplying All types of precision-crafted electrical & control panels with integrated components from Schneider, Anchor, Polycab and L&K.
+                </p>
+                <!-- Call-to-action button that links to the contact section. -->
+                <a href="#contact" class="btn-primary font-semibold py-3 px-8 rounded-lg shadow-lg text-lg hover:shadow-xl">
+                    Contact us
+                </a>
+            </div>
+        </section>
+    
+        <!-- Section displaying key statistics or numbers about your company. -->
+        <section id="stats" class="py-20 parallax-bg">
+            <!-- Overlay for the parallax background. -->
+            <div class="parallax-overlay"></div>
+            <!-- Container for the statistics content. -->
+            <div class="container mx-auto px-6 relative z-10">
+                <!-- Title for the statistics section. -->
+                <h2 class="section-title font-extrabold relative pt-10 text-center">Our Impact by the Numbers</h2>
+                <!-- Grid layout for the individual statistics. -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-12">
+                    <!-- Individual statistic block. 'animate-on-scroll fade-in-up' makes it animate when visible. -->
+                    <div class="p-4 animate-on-scroll fade-in-up">
+                        <!-- The counter number itself. 'data-target' is used by JavaScript to animate the count. -->
+                        <span class="counter-number text-4xl md:text-5xl font-bold text-[var(--brand-primary-gold)]" data-target="800" data-format="int">0</span><span class="text-4xl md:text-5xl font-bold text-[var(--brand-primary-gold)]">+</span>
+                        <!-- Label for the statistic. -->
+                        <p class="counter-label text-gray-700 mt-2 font-medium">Sq. Ft. Metal Fabricated Daily</p>
+                    </div>
+                    <!-- Another statistic block with a slight animation delay. -->
+                    <div class="p-4 animate-on-scroll fade-in-up" style="animation-delay: 150ms;">
+                        <span class="counter-number text-4xl md:text-5xl font-bold text-[var(--brand-primary-gold)]" data-target="25000" data-format="int">0.0</span><span class="text-4xl md:text-5xl font-bold text-[var(--brand-primary-gold)]">+</span>
+                        <p class="counter-label text-gray-700 mt-2 font-medium">Components Installed Annually</p>
+                    </div>
+                    <!-- Another statistic block with a slight animation delay. -->
+                    <div class="p-4 animate-on-scroll fade-in-up" style="animation-delay: 300ms;">
+                        <span class="counter-number text-4xl md:text-5xl font-bold text-[var(--brand-primary-gold)]" data-target="20" data-format="int">0</span><span class="text-4xl md:text-5xl font-bold text-[var(--brand-primary-gold)]">+</span>
+                        <p class="counter-label text-gray-700 mt-2 font-medium">Skilled Employees</p>
+                    </div>
+                    <!-- Another statistic block with a slight animation delay. -->
+                    <div class="p-4 animate-on-scroll fade-in-up" style="animation-delay: 450ms;">
+                        <span class="counter-number text-4xl md:text-5xl font-bold text-[var(--brand-primary-gold)]" data-target="95" data-format="int">0</span><span class="text-4xl md:text-5xl font-bold text-[var(--brand-primary-gold)]">%</span>
+                        <p class="counter-label text-gray-700 mt-2 font-medium">Energy-Efficient Operations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Section containing brief overview cards (About Us, What We Do, Our Facility). -->
+        <section id="brief-cards" class="py-20 bg-gradient-to-b from-gray-50 to-gray-200">
+            <div class="container mx-auto px-6">
+                <!-- Grid layout for the brief cards. -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Individual brief card for "About Us". -->
+                    <div id="about-brief" class="brief-section flex flex-col p-8 rounded-xl shadow-lg bg-white animate-on-scroll fade-in-up">
+                        <!-- Icon for the "About Us" card. -->
+                        <div class="text-center mb-4"><i class="fas fa-building text-3xl text-[var(--brand-primary-gold)]"></i></div>
+                        <!-- Heading for the card. -->
+                        <h3 class="text-3xl md:text-4xl font-semibold mb-4 text-center">About Us</h3>
+                        <!-- Description text for the card. -->
+                        <p class="flex-grow text-gray-600 mb-6 text-center">Established in 2024, we're an emerging force in precision panel engineering, dedicated to innovative fabrication, premium component integration, and exceeding industrial client expectations nationwide.</p>
+                        <!-- Button to learn more, linking to the About Us page. -->
+                        <a href="about-us.html" class="btn-primary inline-flex items-center justify-center font-semibold py-3 px-6 rounded-lg mx-auto mt-4">
+                            Learn More About Us
+                            <i class="fas fa-arrow-right ml-2"></i> <!-- Right arrow icon -->
+                        </a>
+                    </div>
+                    <!-- Individual brief card for "What We Do" with an animation delay. -->
+                    <div id="what-we-do" class="brief-section flex flex-col p-8 rounded-xl shadow-lg bg-white animate-on-scroll fade-in-up" style="animation-delay: 200ms;">
+                         <!-- Icon for the "What We Do" card. -->
+                         <div class="text-center mb-4"><i class="fas fa-industry text-3xl text-[var(--brand-primary-gold)]"></i></div>
+                        <h3 class="text-3xl md:text-4xl font-semibold mb-4 text-center">What We Do</h3>
+                        <p class="flex-grow text-gray-600 mb-6 text-center">We engineer panels through metal forming and welded frames, followed by powder coating, culminating in premium switchgear and MCB integration using certified brands like Anchor, Polycab, and Schneider for industrial reliability.</p>
+                        <!-- Button to explore services, linking to the Services page. -->
+                        <a href="services.html" class="btn-primary inline-flex items-center justify-center font-semibold py-3 px-6 rounded-lg mx-auto mt-4">
+                            Explore Our Services
+                            <i class="fas fa-arrow-right ml-2"></i> <!-- Right arrow icon -->
+                        </a>
+                    </div>
+                    <!-- Individual brief card for "Our Facility" with an animation delay. -->
+                    <div id="our-facility" class="brief-section flex flex-col p-8 rounded-xl shadow-lg bg-white animate-on-scroll fade-in-up" style="animation-delay: 400ms;">
+                         <!-- Icon for the "Our Facility" card. -->
+                         <div class="text-center mb-4"><i class="fas fa-cogs text-3xl text-[var(--brand-primary-gold)]"></i></div>
+                        <h3 class="text-3xl md:text-4xl font-semibold mb-4 text-center">Our Facility</h3>
+                        <p class="flex-grow text-gray-600 mb-6 text-center">Our advanced manufacturing facility features precision fabrication systems to deliver engineered electrical panel solutions. All production undergoes rigorous testing protocols including dielectric strength checks and IP certification validation.</p>
+                        <!-- Button to discover facility, linking to the Facility page. -->
+                        <a href="facility.html" class="btn-primary inline-flex items-center justify-center font-semibold py-3 px-6 rounded-lg mx-auto mt-4">
+                            Discover Our Facility
+                            <i class="fas fa-arrow-right ml-2"></i> <!-- Right arrow icon -->
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+      <!-- Contact section, now displaying your contact card image. -->
+      <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <!-- Title for the contact card section. -->
+            <h2 class="section-title font-extrabold relative pt-10 text-center">Our Contact Card</h2>
+            <!-- Container for the contact card image. -->
+            <div class="max-w-3xl mx-auto bg-gray-50 p-8 rounded-lg shadow-xl mt-12 text-center">
+                <!-- Your contact card image. REMEMBER TO ENSURE THIS IMAGE PATH IS CORRECT! -->
+                <img src="ASSETS/CONTACT CARD.jpg" alt="My Contact Card" class="max-w-full h-auto rounded-lg">
+            </div>
+        </div>
+    </section>
+    
+        <!-- Pre-footer section, containing quick links and contact details before the main footer. -->
+        <section id="contact-details" class="pre-footer py-16">
+            <div class="container mx-auto px-6 text-sm">
+                <!-- Grid layout for columns of links and contact info. -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <!-- Column for Quick Links. -->
+                    <div>
+                        <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Quick Links</h4>
+                        <!-- Links to various pages. -->
+                        <a href="index.html" class="pre-footer-link">Home</a> <!-- Changed vhm.html to index.html -->
+                        <a href="about-us.html" class="pre-footer-link">About Us</a>
+                        <a href="services.html" class="pre-footer-link">Services</a>
+                        <a href="career.html" class="pre-footer-link">Careers</a>
+                    </div>
+                    <!-- Column for Our Strengths. -->
+                    <div>
+                        <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Our Strengths</h4>
+                        <!-- Links related to company strengths. -->
+                        <a href="machinery.html" class="pre-footer-link">Advanced Machinery</a>
+                        <a href="quality-hub.html" class="pre-footer-link">Quality Control</a>
+                        <a href="services.html" class="pre-footer-link">Precision Engineering</a> <!-- Changed from Fabric Expertise -->
+                        <a href="component-integration.html" class="pre-footer-link">Component Integration</a> <!-- Changed from Production Capacity, as it's more relevant to electronics -->
+                        <a href="quality-hub.html" class="pre-footer-link">R&D and Testing</a>
+                    </div>
+                    <!-- Column for Our Commitment. -->
+                    <div>
+                        <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Our Commitment</h4>
+                        <!-- Links related to company commitments. -->
+                        <a href="customer-satisfaction.html" class="pre-footer-link">Customer Satisfaction</a>
+                        <a href="utilities-safety.html" class="pre-footer-link">Safety & Health</a> <!-- Renamed file link -->
+                        <a href="sustainability-people.html" class="pre-footer-link">Environmental Responsibility</a> <!-- Renamed file link -->
+                        <a href="sustainability-people.html" class="pre-footer-link">Skilled Workforce</a> <!-- Renamed file link -->
+                    </div>
+                    <!-- Column for Contact Us details. -->
+                    <div>
+                        <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Contact Us</h4>
+                        <!-- Company address, phone, and email. REMEMBER TO UPDATE THESE PLACEHOLDERS! -->
+                        <p class="text-gray-600 leading-relaxed">
+                            <strong>Address:</strong> Your Company Address, City, State - 123456, Country<br> <!-- Placeholder for address -->
+                            <strong>Phone:</strong> <a href="tel:+91XXXXXXXXXX" class="pre-footer-link inline">+91-XXXXXXXXXX</a><br> <!-- Placeholder for phone -->
+                            <strong>Email:</strong> <a href="mailto:info@yourcompany.com" class="pre-footer-link inline">info@yourcompany.com</a> <!-- Placeholder for email -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- The <footer> section contains copyright information and social media links. -->
+        <footer class="py-8 bg-gray-800 text-gray-400"> <!-- Changed bg-vhm-dark-text to a generic gray-800 -->
+            <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+                <!-- Copyright text. -->
+                <p class="mb-4 md:mb-0 text-center md:text-left text-base">&copy; <span id="currentYear"></span> Ess Bee Trade Box Private Limited. All Rights Reserved.</p> <!-- Updated copyright -->
+                <!-- Social media icons. REMEMBER TO UPDATE THESE LINKS! -->
+                <div class="flex justify-center space-x-6">
+                    <a href="https://www.instagram.com/yourcompanyinstagram" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a> <!-- Placeholder for Instagram -->
+                    <a href="https://www.linkedin.com/company/yourcompanylinkedin" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> <!-- Placeholder for LinkedIn -->
+                    <a href="https://www.facebook.com/yourcompanyfacebook" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> <!-- Placeholder for Facebook -->
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- The <script> tag contains JavaScript code that adds interactivity to your website. -->
+    <script>
+        // --- Loading Screen Logic ---
+        // Get a reference to the loader element by its ID.
+        const loader = document.getElementById('loader');
+        // Set a minimum time the loader will be visible (2.5 seconds).
+        const minLoadTime = 2500; // Set minimum load time in milliseconds (e.g., 2500ms = 2.5 seconds)
+        // Record the time when the page started loading.
+        const pageLoadTime = Date.now();
+
+        // This code runs when the entire page (including images) has finished loading.
+        window.addEventListener('load', () => {
+            // Calculate how much time has passed since the page started loading.
+            const timeLapsed = Date.now() - pageLoadTime;
+            // Determine how much longer the loader needs to stay visible to meet the minimum load time.
+            const delay = Math.max(minLoadTime - timeLapsed, 0);
+
+            // After the calculated delay, hide the loader.
+            setTimeout(() => {
+                // Add the 'hidden' class to the loader, which makes it fade out.
+                loader.classList.add('hidden');
+                // Remove the 'loading' class from the body, allowing scrolling again.
+                document.body.classList.remove('loading');
+            }, delay);
+        });
+
+        // Set the current year in the footer dynamically.
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Smooth scroll for on-page links (e.g., clicking "Contact us" scrolls smoothly to the contact section).
+        // Find all links that start with '#' (these are internal page links).
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            // Add a click listener to each of these links.
+            anchor.addEventListener('click', function (e) {
+                // Prevent the default jump behavior of the link.
+                e.preventDefault();
+                // Get the ID of the section to scroll to (e.g., "#contact").
+                const targetId = this.getAttribute('href');
+                // Find the actual HTML element with that ID.
+                const targetElement = document.querySelector(targetId);
+                // If the target element exists:
+                if (targetElement) {
+                    // Get the height of the header to adjust scroll position.
+                    const headerOffset = document.querySelector('header').offsetHeight;
+                    // Calculate the element's position relative to the top of the document.
+                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    // Adjust the scroll position to account for the fixed header.
+                    const offsetPosition = elementPosition - headerOffset;
+                    // Smoothly scroll to the calculated position.
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile menu toggle functionality.
+        // Get references to the mobile menu button and the mobile menu itself.
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        // If both elements exist:
+        if (mobileMenuButton && mobileMenu) {
+            // Add a click listener to the mobile menu button.
+            mobileMenuButton.addEventListener('click', () => {
+                // Toggle the 'hidden' class on the mobile menu (show/hide it).
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // REWRITTEN & Corrected Animate counters function: Animates numbers (like 800+, 25000+) when they come into view.
+        function animateCounters() {
+            // Find all elements with the 'counter-number' class.
+            const counters = document.querySelectorAll('.counter-number');
+            // Set the duration for the animation (2 seconds).
+            const animationDuration = 2000; // 2 seconds for a smooth animation
+
+            // Loop through each counter element.
+            counters.forEach(counter => {
+                // Get the final target number from the 'data-target' attribute.
+                const target = +counter.getAttribute('data-target'); // The '+' converts string to number
+                // Get the format (integer or float) from 'data-format' attribute, default to 'int'.
+                const format = counter.getAttribute('data-format') || 'int'; // Default to integer
+                // Initialize start time for the animation.
+                let startTime = null;
+
+                // This function is called repeatedly to update the counter's number.
+                const step = (timestamp) => {
+                    // Record the start time if it's the first step.
+                    if (!startTime) startTime = timestamp;
+                    // Calculate how much time has passed since the animation started.
+                    const progress = timestamp - startTime;
+                    // Calculate the percentage of the animation completed (0 to 1).
+                    const percentage = Math.min(progress / animationDuration, 1);
+                    // Calculate the current value of the counter based on progress.
+                    const currentValue = percentage * target;
+                    
+                    // Update the counter's text based on the desired format.
+                    if (format === 'float') {
+                        // For float numbers, keep one decimal place.
+                        counter.innerText = currentValue.toFixed(1);
+                    } else {
+                        // For integer numbers, round down and add commas for large numbers.
+                        counter.innerText = Math.floor(currentValue).toLocaleString();
+                    }
+                    
+                    // If the animation is not yet complete, request the next frame.
+                    if (progress < animationDuration) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                         // Once animation is complete, ensure the final target value is displayed accurately.
+                         if (format === 'float') {
+                            counter.innerText = target.toFixed(1);
+                        } else {
+                            counter.innerText = target.toLocaleString();
+                        }
+                    }
+                };
+                // Start the animation by requesting the first frame.
+                window.requestAnimationFrame(step);
+            });
+        }
+        
+        // Intersection Observer for animations: Makes elements animate when they become visible on screen.
+        // Create a new Intersection Observer.
+        const animationObserver = new IntersectionObserver((entries) => {
+            // Loop through each element being observed.
+            entries.forEach(entry => {
+                // If the element is currently visible (intersecting the viewport):
+                if (entry.isIntersecting) {
+                    // Add classes to trigger the animation.
+                    entry.target.classList.add('is-visible', 'animate');
+                } else {
+                    // If the element is no longer visible, remove the animation classes.
+                    entry.target.classList.remove('is-visible', 'animate');
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible.
+
+        // Observe all elements that should animate on scroll.
+        document.querySelectorAll('.animate-on-scroll, .section-title, #stats, #brief-cards, #contact, .pre-footer-heading, .brief-section').forEach(el => {
+            animationObserver.observe(el);
+        });
+
+        // Corrected Intersection Observer for stats counter: Specifically triggers the counter animation.
+        // Create another Intersection Observer specifically for the stats section.
+        const statsObserver = new IntersectionObserver((entries, observer) => {
+            // Loop through entries.
+            entries.forEach(entry => {
+                // If the stats section is visible:
+                if (entry.isIntersecting) {
+                    // Start the counter animation.
+                    animateCounters();
+                    // Stop observing the stats section after the animation has started (only needs to run once).
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 }); // Trigger when 20% of the stats section is visible.
+
+        // Get a reference to the stats section.
+        const statsSection = document.getElementById('stats');
+        // If the stats section exists, start observing it.
+        if (statsSection) { statsObserver.observe(statsSection); }
+
+        // Active nav link highlighting on scroll: Highlights the current section in the navigation bar.
+        // Get all sections in the main content that have an ID.
+        const sections = document.querySelectorAll('main section[id]');
+        // Get all desktop navigation links.
+        const navLinksDesktop = document.querySelectorAll('header nav .hidden.md\\:flex a.nav-link');
+        // Get all mobile navigation links.
+        const navLinksMobile = document.querySelectorAll('#mobile-menu a');
+        
+        // Function to update which navigation link is active.
+        function updateActiveLink() {
+            // Default to 'home' if no other section is active.
+            let current = 'home'; 
+            // Get the height of the header (since it's fixed, it affects scroll position).
+            const headerHeight = document.querySelector('header').offsetHeight;
+            // Loop through each section.
+            sections.forEach(section => {
+                // Calculate the top position of the section, adjusted for the header.
+                const sectionTop = section.offsetTop - headerHeight - 60; // 60px buffer for better UX
+                // If the current scroll position is at or past this section:
+                if (window.pageYOffset >= sectionTop) { 
+                    // Set this section as the current active one.
+                    current = section.getAttribute('id'); 
+                }
+            });
+
+            // Update desktop navigation links.
+            navLinksDesktop.forEach(link => {
+                // Remove the 'nav-link-active' class from all links first.
+                link.classList.remove('nav-link-active');
+                // If the link's href matches the current section ID OR if it's the home link and we're at home:
+                if (link.href.includes(`index.html#${current}`) || (current === 'home' && (link.getAttribute('href') === 'index.html' || link.getAttribute('href') === '/'))) {
+                    // Add the 'nav-link-active' class to highlight it.
+                    link.classList.add('nav-link-active');
+                }
+            });
+
+            // Update mobile navigation links (similar logic).
+            navLinksMobile.forEach(link => {
+                link.classList.remove('nav-link-active');
+                 if (link.getAttribute('href').includes(`#${current}`)) { 
+                    link.classList.add('nav-link-active'); 
+                }
+            });
+        }
+
+        // Run the update function whenever the user scrolls.
+        window.addEventListener('scroll', updateActiveLink);
+        
+        // SCRIPT TO HANDLE SMOOTH SCROLL FROM OTHER PAGES: If a user clicks a link from another page
+        // that points to a specific section (e.g., yourwebsite.com/index.html#contact).
+        // This code runs when the entire HTML document is loaded (before images).
+        document.addEventListener("DOMContentLoaded", () => {
+            // Immediately update active link in case the page loads directly into a section.
+            updateActiveLink();
+
+            // Check if the URL has a hash (e.g., #contact).
+            if (window.location.hash) {
+                // Get the hash (e.g., "#contact").
+                const targetId = window.location.hash;
+                // Find the element corresponding to that hash.
+                const targetElement = document.querySelector(targetId);
+                
+                // If the target element exists:
+                if (targetElement) {
+                    // Wait a short moment to ensure everything is rendered before scrolling.
+                    setTimeout(() => {
+                        // Get the header height again.
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        // Calculate the element's position.
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        // Adjust for the fixed header.
+                        const offsetPosition = elementPosition - headerOffset;
+                        
+                        // Smoothly scroll to the target section.
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }, 100); // 100ms delay
+                }
+            }
+        });
+    </script>
+</body>
+</html>

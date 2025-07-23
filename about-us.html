@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Main font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- New heading font: Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles for the loading screen */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column; /* Arrange items vertically */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s ease; /* Slower, smoother transition */
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #loader img {
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        #loader .tagline {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            color: #a0a0a0; /* A soft gray */
+            opacity: 0;
+            animation: fadeIn 1.5s ease 0.5s forwards; /* Fade in after 0.5s */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        /* Hide scrollbar while loader is active */
+        .loading {
+            overflow: hidden;
+        }
+
+        /* --- NEW TYPOGRAPHY SYSTEM --- */
+        .section-title, .hero-content h1, .brief-section h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Adjusting size for the new font which appears larger */
+        .section-title {
+            font-size: 2.5rem; /* Equivalent to text-4xl */
+        }
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 3rem; /* Equivalent to text-5xl */
+            }
+        }
+
+        /* --- NEW DYNAMIC BACKGROUND & ANIMATION STYLES --- */
+        /* This background image is a placeholder. Replace with an electronics-themed image. */
+        .parallax-bg {
+            background-image: url('https://placehold.co/1920x1080/000000/ffffff?text=Electronics+Background');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85); /* White overlay for readability */
+        }
+        .brief-section {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+        .brief-section:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        /* Custom color variables for your electronics company (adjust as needed) */
+        :root {
+            --electronics-primary: #007bff; /* A blue for primary elements */
+            --electronics-secondary: #6c757d; /* A gray for secondary elements */
+            --electronics-dark-text: #212529; /* Dark text color */
+            --electronics-light-text: #f8f9fa; /* Light text color */
+        }
+        .text-electronics-primary { color: var(--electronics-primary); }
+        .bg-electronics-primary { background-color: var(--electronics-primary); }
+        .text-electronics-dark-text { color: var(--electronics-dark-text); }
+        .bg-electronics-dark-text { background-color: var(--electronics-dark-text); }
+
+        /* Adjust social link color */
+        .social-link:hover {
+            color: var(--electronics-primary);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Loading Screen (Optional, keep if desired) -->
+    <!-- This section creates a full-screen loading animation that hides once the page content is loaded. -->
+    <div id="loader">
+        <!-- Placeholder for your company logo. Replace 'https://placehold.co/100x100/007bff/ffffff?text=LOGO' with your actual logo path. -->
+        <img src="Assets/ess bee trade box panel logo.pdf (5).png" alt="Company Logo" class="h-24 w-auto">
+        <!-- Tagline displayed during loading. Customize this. -->
+        <p class="tagline">Innovating Tomorrow, Today</p>
+    </div>
+
+    <!-- Header Section -->
+    <!-- This sticky header contains your navigation bar and company logo. -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <!-- Placeholder for your company logo. Replace 'https://placehold.co/80x80/007bff/ffffff?text=LOGO' with your actual logo path. -->
+                <img src="Assets/ess bee trade box panel logo.pdf (5).png" alt="Your Company Logo" class="h-20 md:h-20 w-auto">
+            </a>
+            <!-- Desktop Navigation Links -->
+            <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                <!-- Products Dropdown -->
+                <div class="dropdown">
+                <!-- The main link for the "What We Do" dropdown. -->
+                <a href="services.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    What We Do <i class="fas fa-chevron-down text-xs ml-1"></i> <!-- Down arrow icon -->
+                </a>
+                <!-- The actual content of the dropdown menu. -->
+                <div class="dropdown-content">
+                    <!-- Links to specific service pages. REMEMBER TO CREATE THESE FILES! -->
+                    <a href="design-engineering.html"> Design & Engineering</a> <!-- Renamed file link -->
+                    <a href="metal-fabrication.html">Metal Fabrication</a> <!-- Renamed file link -->
+                    <a href="powder-coating.html">Powder Coating</a> <!-- Renamed file link -->
+                    <a href="component-integration.html">Component Integration</a> <!-- Renamed file link -->
+                    <a href="quality-assurance.html">Quality Assurance</a>
+                </div>
+            </div>
+                <!-- Solutions Dropdown -->
+                 <div class="dropdown">
+    <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium flex items-center">
+        Gallery <i class="fas fa-chevron-down text-xs ml-1"></i> </a>
+    <div class="dropdown-content">
+        <a href="our-work.html">Our Work</a>
+        <a href="our-achievements.html">Our Achievements</a>
+        <a href="our-certificates.html">Our Certificates</a>
+    </div>
+</div>
+                <a href="about-us.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">About Us</a>
+               
+                <a href="contact.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Contact Us</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu Content -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg border-t border-gray-200">
+            <a href="index.html" class="block nav-link px-4 py-3 border-b border-gray-100">Home</a>
+            <a href="products.html" class="block nav-link px-4 py-3 border-b border-gray-100">Products</a>
+            <a href="solutions.html" class="block nav-link px-4 py-3 border-b border-gray-100">Solutions</a>
+            <a href="about-us.html" class="block nav-link px-4 py-3 border-b border-gray-100">About Us</a>
+            <a href="career.html" class="block nav-link px-4 py-3 border-b border-gray-100">Career</a>
+            <a href="contact.html" class="block nav-link px-4 py-3 border-b border-gray-100">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section for About Us Page -->
+        <!-- This section provides a prominent banner with your company's name and a tagline. -->
+        <section class="relative bg-gray-700 py-20 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x600/333333/ffffff?text=About+Us+Banner+Electronics');">
+            <div class="absolute inset-0 bg-black opacity-40"></div>
+            <div class="relative container mx-auto px-6 text-center">
+                <!-- Replace 'Your Electronics Company Name' with your actual company name. -->
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Ess Bee Trade Box Pvt Lmt</h1>
+                <!-- Customize your company's founding tagline. -->
+                <p class="mt-4 text-lg text-gray-200">Pioneering Innovation in Electronics Since 2024</p>
+            </div>
+        </section>
+
+        <!-- Our Journey Section -->
+        <!-- This section details the history and evolution of your electronics company. -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <h2 class="section-title text-4xl md:text-5xl font-extrabold text-left relative pt-10">Our Journey in Electronics</h2>
+                        <!-- Paragraph 1: Founding and initial vision -->
+                        <p class="mt-8 text-gray-600 leading-relaxed">
+                            Founded in [Year Founded], Your Electronics Company Name embarked on a mission to revolutionize the electronics landscape. We recognized a growing demand for [mention specific market gap, e.g., innovative, user-friendly, sustainable] electronic solutions that truly enhance daily life. From our humble beginnings, we've grown into a leading innovator, driven by a passion for technology and a commitment to excellence.
+                        </p>
+                        <!-- Paragraph 2: Expansion and R&D -->
+                        <p class="mt-4 text-gray-600 leading-relaxed">
+                            Our journey began with [mention initial focus or product, e.g., a small team of engineers developing cutting-edge IoT devices]. Over the years, we've expanded our expertise to encompass [mention broader areas, e.g., consumer electronics, industrial automation, smart home systems]. We pride ourselves on our rigorous research and development processes, ensuring that every product we release meets the highest standards of performance, reliability, and design.
+                        </p>
+                        <!-- Paragraph 3: Unique selling proposition and culture -->
+                        <p class="mt-4 text-gray-600 leading-relaxed">
+                            A key differentiator for us has always been our dedication to [mention unique selling proposition, e.g., customer-centric design, ethical manufacturing, open-source contributions]. We believe that technology should serve humanity, and our products are crafted with this philosophy at their core. We continuously invest in advanced technologies and foster a culture of innovation, pushing the boundaries of what's possible in the electronics world.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <!-- Placeholder image for your electronics facility or a relevant visual. -->
+                        <img src="https://placehold.co/600x400/cccccc/333333?text=Electronics+Facility" alt="Electronics Company Facility" class="rounded-lg shadow-xl w-full">
+                    </div>
+                </div>
+                <!-- Additional paragraphs about commitment and future. -->
+                <p class="mt-4 text-gray-600 leading-relaxed">
+                    We are not just building electronic devices; we are building experiences that connect people, simplify tasks, and inspire creativity. Our commitment extends beyond the product itself, focusing on providing exceptional customer support and building lasting relationships with our users and partners.
+                </p>
+                <p class="mt-4 text-gray-600 leading-relaxed">
+                    As we look to the future, Your Electronics Company Name remains dedicated to pioneering the next generation of electronic innovations, always striving to deliver products that are not only technologically advanced but also intuitive, reliable, and impactful.
+                </p>
+            </div>
+        </section>
+
+        <!-- Leadership Section -->
+        <!-- This section introduces your company's key leaders. -->
+        <section class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl md:text-5xl font-extrabold text-center relative pt-10">Meet Our Leadership</h2>
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-16 max-w-6xl mx-auto mt-12 pt-10">
+                    <!-- Director 1 -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                        <!-- Placeholder for Director 1 photo. -->
+                        <img src="https://placehold.co/128x128/007bff/ffffff?text=Director+1" alt="Director 1 Photo" class="w-32 h-32 rounded-full mx-auto -mt-20 border-4 border-white shadow-xl">
+                        <!-- Replace 'Name of Director 1' with the actual name. -->
+                        <h3 class="text-2xl font-bold mt-6 text-electronics-dark-text">Name of Director 1</h3>
+                        <!-- Customize the title. -->
+                        <p class="text-electronics-primary font-semibold">Founder & CEO</p>
+                        <!-- Customize the bio for Director 1, focusing on their role in electronics. -->
+                        <p class="text-gray-600 mt-4 text-sm leading-relaxed">
+                            [Brief bio for Director 1, focusing on their vision for the electronics company, their expertise, and their role in its founding and growth. Emphasize innovation, future vision, and leadership in the tech sector.]
+                        </p>
+                        <div class="mt-4">
+                            <!-- Replace with actual LinkedIn profile URL if available. -->
+                            <a href="[LinkedIn Profile URL]" target="_blank" class="social-link text-gray-500 hover:text-electronics-primary" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Director 2 -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                        <!-- Placeholder for Director 2 photo. -->
+                        <img src="https://placehold.co/128x128/007bff/ffffff?text=Director+2" alt="Director 2 Photo" class="w-32 h-32 rounded-full mx-auto -mt-20 border-4 border-white shadow-xl">
+                        <!-- Replace 'Name of Director 2' with the actual name. -->
+                        <h3 class="text-2xl font-bold mt-6 text-electronics-dark-text">Name of Director 2</h3>
+                        <!-- Customize the title. -->
+                        <p class="text-electronics-primary font-semibold">Chief Operating Officer</p>
+                        <!-- Customize the bio for Director 2. -->
+                        <p class="text-gray-600 mt-4 text-sm leading-relaxed">
+                            [Brief bio for Director 2, focusing on their operational expertise, efficiency, and role in scaling the electronics business. Highlight their contribution to product development or manufacturing processes.]
+                        </p>
+                        <div class="mt-4">
+                            <!-- Replace with actual LinkedIn profile URL if available. -->
+                            <a href="[LinkedIn Profile URL]" target="_blank" class="social-link text-gray-500 hover:text-electronics-primary" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                     <!-- Director 3 -->
+                     <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                        <!-- Placeholder for Director 3 photo. -->
+                        <img src="https://placehold.co/128x128/007bff/ffffff?text=Director+3" alt="Director 3 Photo" class="w-32 h-32 rounded-full mx-auto -mt-20 border-4 border-white shadow-xl">
+                        <!-- Replace 'Name of Director 3' with the actual name. -->
+                        <h3 class="text-2xl font-bold mt-6 text-electronics-dark-text">Name of Director 3</h3>
+                        <!-- Customize the title. -->
+                        <p class="text-electronics-primary font-semibold">Head of Research & Development</p>
+                        <!-- Customize the bio for Director 3. -->
+                        <p class="text-gray-600 mt-4 text-sm leading-relaxed">
+                           [Brief bio for Director 3, focusing on their expertise in electronics R&D, innovation, and driving technological advancements within the company. Emphasize their role in shaping future products.]
+                        </p>
+                        <div class="mt-4">
+                            <!-- Replace with actual LinkedIn profile URL if available. -->
+                            <a href="[LinkedIn Profile URL]" target="_blank" class="social-link text-gray-500 hover:text-electronics-primary" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission and Vision Section -->
+        <!-- This section outlines your company's core mission and vision. -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <i class="fas fa-bullseye text-4xl text-electronics-primary mb-4"></i>
+                        <h3 class="text-3xl font-bold text-electronics-dark-text mb-4">Our Mission</h3>
+                        <!-- Customize your company's mission statement. -->
+                        <p class="text-gray-600 leading-relaxed">
+                            To innovate and deliver cutting-edge electronic solutions that empower individuals and industries, enhancing connectivity, efficiency, and quality of life through reliable and user-centric technology.
+                        </p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <i class="fas fa-eye text-4xl text-electronics-primary mb-4"></i>
+                        <h3 class="text-3xl font-bold text-electronics-dark-text mb-4">Our Vision</h3>
+                        <!-- Customize your company's vision statement. -->
+                        <p class="text-gray-600 leading-relaxed">
+                            To be a globally recognized leader in electronic innovation, setting new standards for technological advancement, sustainable practices, and customer satisfaction, while inspiring a brighter, more connected future.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Values Section -->
+        <!-- This section highlights the fundamental values that guide your company. -->
+        <section class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl md:text-5xl font-extrabold text-center relative pt-10">Our Core Values</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                    <!-- Value 1: Innovation -->
+                    <div class="text-center p-4">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-electronics-primary text-white mx-auto mb-4">
+                            <i class="fas fa-lightbulb text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Innovation</h4>
+                        <p class="text-gray-600">Continuously pushing the boundaries of technology to create groundbreaking electronic solutions.</p>
+                    </div>
+                    <!-- Value 2: Quality -->
+                    <div class="text-center p-4">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-electronics-primary text-white mx-auto mb-4">
+                            <i class="fas fa-cogs text-2xl"></i> <!-- Changed icon for electronics -->
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Quality</h4>
+                        <p class="text-gray-600">Delivering superior products and services through meticulous design, engineering, and manufacturing.</p>
+                    </div>
+                    <!-- Value 3: Customer Focus -->
+                    <div class="text-center p-4">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-electronics-primary text-white mx-auto mb-4">
+                            <i class="fas fa-users text-2xl"></i> <!-- Changed icon for customer focus -->
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Customer Focus</h4>
+                        <p class="text-gray-600">Prioritizing user needs and feedback to develop intuitive and impactful electronic experiences.</p>
+                    </div>
+                    <!-- Value 4: Integrity -->
+                    <div class="text-center p-4">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-electronics-primary text-white mx-auto mb-4">
+                            <i class="fas fa-handshake text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Integrity</h4>
+                        <p class="text-gray-600">Conducting business with the highest ethical standards, transparency, and trust.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pre-Footer Section -->
+    <!-- This section provides quick links and contact information before the main footer. -->
+    <section class="pre-footer py-16 bg-gray-200 text-gray-800"> <!-- Adjusted background for better contrast -->
+        <div class="container mx-auto px-6 text-sm">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Quick Links</h4>
+                        <a href="index.html" class="pre-footer-link">Home</a>
+                        <a href="about-us.html" class="pre-footer-link">About Us</a>
+                        <a href="products.html" class="pre-footer-link">Products</a>
+                        <a href="solutions.html" class="pre-footer-link">Solutions</a>
+                        <a href="career.html" class="pre-footer-link">Careers</a>
+                        <a href="contact.html" class="pre-footer-link">Contact</a>
+                    </div>
+                    <div>
+                        <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Our Strengths</h4>
+                        <a href="product-innovation.html" class="pre-footer-link">Product Innovation</a>
+                        <a href="r&d.html" class="pre-footer-link">Research & Development</a>
+                        <a href="manufacturing.html" class="pre-footer-link">Manufacturing Excellence</a>
+                        <a href="quality-assurance.html" class="pre-footer-link">Quality Assurance</a>
+                        <a href="technical-support.html" class="pre-footer-link">Technical Support</a>
+                    </div>
+                    <div>
+                        <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Our Commitment</h4>
+                        <a href="customer-satisfaction.html" class="pre-footer-link">Customer Satisfaction</a>
+                        <a href="sustainability.html" class="pre-footer-link">Environmental Responsibility</a>
+                        <a href="safety.html" class="pre-footer-link">Safety & Compliance</a>
+                        <a href="community.html" class="pre-footer-link">Community Engagement</a>
+                </div>
+                <div>
+                    <h4 class="pre-footer-heading font-bold text-xl mb-4 tracking-wide">Contact Us</h4>
+                    <p class="text-gray-600 leading-relaxed">
+                        <!-- Placeholder for your company's address. -->
+                        <strong>Address:</strong> [Your Company Address Line 1]<br>
+                        [Your Company Address Line 2], [City] - [ZIP Code], [Country]<br>
+                        <!-- Placeholder for your company's phone number. -->
+                        <strong>Phone:</strong> <a href="tel:[Your Phone Number]" class="pre-footer-link inline">[Your Phone Number]</a><br>
+                        <!-- Placeholder for your company's email address. -->
+                        <strong>Email:</strong> <a href="mailto:example@yourcompany.com" class="pre-footer-link inline">example@yourcompany.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <!-- This is the main footer, containing copyright and social media links. -->
+    <footer class="py-8 bg-electronics-dark-text text-gray-400">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <!-- Copyright information. Replace 'Your Electronics Company Name'. -->
+            <p class="mb-4 md:mb-0 text-center md:text-left text-base">&copy; <span id="currentYear"></span> Your Electronics Company Name. All Rights Reserved.</p>
+            
+            <div class="flex justify-center space-x-6">
+                <!-- Social media links. Replace '#' with your actual social media URLs. -->
+                <a href="#" target="_blank" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" target="_blank" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" target="_blank" class="social-link" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" target="_blank" class="social-link" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Dynamically sets the current year in the footer.
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // REWRITTEN ANIMATION SCRIPT
+    // This script observes elements and adds animation classes when they enter the viewport.
+    const animationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // When element enters the viewport, add animation class
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible', 'animate');
+            } 
+            // When element leaves the viewport, remove class to reset animation
+            else {
+                entry.target.classList.remove('is-visible', 'animate');
+            }
+        });
+    }, { 
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
+
+    // Apply the re-triggering animation to all desired elements.
+    // Ensure these classes are present on elements you want to animate on scroll.
+    document.querySelectorAll('.animate-on-scroll, .section-title, .brief-section, .grid > div').forEach(el => {
+        animationObserver.observe(el);
+    });
+
+    // Mobile menu toggle functionality.
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    // This handles smooth scroll for sub-navigation links (if you implement them on other pages).
+    const subNavLinks = document.querySelectorAll('.sub-nav a');
+    if (subNavLinks.length > 0) {
+        subNavLinks.forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Adjust header offset if you have a sub-navigation bar.
+                    const headerOffset = document.querySelector('header').offsetHeight + (document.querySelector('.sub-nav')?.offsetHeight || 0);
+                    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    // This handles tab functionality on pages like services.html (if you implement tabs).
+    function changeTab(event, tabID) {
+        const tabcontent = document.querySelectorAll('.tab-content');
+        tabcontent.forEach(content => content.style.display = "none");
+        
+        const tablinks = document.querySelectorAll('.tab-button');
+        tablinks.forEach(link => link.classList.remove('active'));
+
+        document.getElementById(tabID).style.display = "block";
+        event.currentTarget.classList.add('active');
+    }
+    // Set the first tab to be active on page load if tabs exist.
+    if(document.querySelector('.tab-button')) {
+        document.addEventListener('DOMContentLoaded', () => {
+             document.querySelector('.tab-button').click();
+        });
+    }
+
+    // Loader script: Hides the loading screen once the page is fully loaded.
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        if (loader) {
+            loader.classList.add('hidden');
+            document.body.classList.remove('loading'); // Re-enable scrolling
+        }
+    });
+
+    // Add 'loading' class to body initially to hide scrollbar.
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('loading');
+    });
+    </script>
+</body>
+</html>
